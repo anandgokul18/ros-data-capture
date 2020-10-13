@@ -56,13 +56,13 @@ def main():
     )
     uploaded_publisher = rospy.Publisher(publish_topic, String, queue_size=1)
 
-    aws_file_uploader = AwsFileUploader(
-        region=region,
-        default_bucket=bucket_name,
-        seconds_delay_to_check_if_file_is_being_written=seconds_delay_to_check_if_file_is_being_written,
-    )
-
     def upload_directory_callback(_):
+        aws_file_uploader = AwsFileUploader(
+            region=region,
+            default_bucket=bucket_name,
+            seconds_delay_to_check_if_file_is_being_written=seconds_delay_to_check_if_file_is_being_written,
+        )
+
         uploaded_files, not_uploaded_files = aws_file_uploader.upload_directory_contents_to_aws_directory(
             directory_path=directory_path,
             is_remove_file_on_upload=is_remove_file_on_upload,
